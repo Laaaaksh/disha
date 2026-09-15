@@ -32,7 +32,12 @@
  * callers only pass `maxTokens`/`timeoutMs` when a specific call needs
  * something other than the shared default.
  */
-import { json as sarvamJson, isSarvamError, DEFAULT_TIMEOUT_MS } from "../sarvam";
+// Disha routes the teaching engine's reasoning through Claude (Anthropic).
+// Sarvam stays only for voice/translate/STT, which Claude does not do.
+// claude.ts mirrors sarvam.json()'s contract and error kinds, so this outer
+// retry and every caller's isSarvamError branch keep working unchanged.
+import { json as sarvamJson } from "./claude";
+import { isSarvamError, DEFAULT_TIMEOUT_MS } from "../sarvam";
 import type { ChatMessage } from "../sarvam";
 import type { z } from "zod";
 

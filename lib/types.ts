@@ -322,3 +322,95 @@ export interface LearningPath {
   createdAt: string;
   updatedAt: string;
 }
+
+// ---------------------------------------------------------------------------
+// Disha — "What should I learn next?" (Bhopal Impact Lab / PS-2)
+// A guidance layer on top of the teaching engine: intake -> ordered path built
+// from a curated catalogue of FREE resources, a small verifiable project per
+// step, and an explicit map from the path to the kinds of work it leads to
+// (Bhopal / Indore / remote). Mobile-first, low-bandwidth, no job promises.
+// ---------------------------------------------------------------------------
+
+/** What device the learner can actually study on — shapes resource choice. */
+export type LearnerDevice = "phone-only" | "phone-and-laptop" | "shared-computer";
+
+/** Extra intake beyond LearnerProfile, captured without assuming prior vocabulary. */
+export interface DishaIntake {
+  /** In the learner's own words: what they can already do. */
+  currentSkills: string;
+  /** The goal, e.g. "get freelance web work" or "a junior data job". */
+  goal: string;
+  device: LearnerDevice;
+  /** Realistic study hours per week. */
+  hoursPerWeek: number;
+  /** True when the learner is new to files/accounts/basic tooling. */
+  absoluteBeginner: boolean;
+}
+
+/** One free learning resource in the curated catalogue (data/catalogue.json). */
+export interface CatalogueResource {
+  id: string;
+  title: string;
+  provider: string;
+  /** Canonical skill tag this resource teaches, e.g. "html-css", "python". */
+  skill: string;
+  level: LearnerLevel;
+  /** Rough time to complete, in hours. */
+  durationHours: number;
+  /** Skill tags a learner should have first; [] if none. */
+  prerequisites: string[];
+  url: string;
+  /** Only resources whose terms permit linking/reuse belong here. */
+  license: string;
+  /** "video" | "article" | "course" | "interactive" — drives low-bandwidth choice. */
+  format: string;
+}
+
+/** A small, verifiable project that proves a step's skill. */
+export interface MiniProject {
+  title: string;
+  /** One-paragraph brief a beginner can act on. */
+  brief: string;
+  /** Concrete, checkable acceptance criteria — the evidence of the skill. */
+  acceptanceCriteria: string[];
+}
+
+/** One ordered step in a Disha path. */
+export interface DishaStep {
+  order: number;
+  title: string;
+  /** Plain-English why-this-now, no jargon. */
+  why: string;
+  /** id of the CatalogueResource this step uses (grounded, never invented). */
+  resourceId: string;
+  project: MiniProject;
+  done: boolean;
+}
+
+/** A category of work the path leads to — described, never promised. */
+export interface WorkRole {
+  category: string;
+  /** Canonical skill tags this work needs. */
+  requiredSkills: string[];
+  /** Where this work is realistically found for a Bhopal learner. */
+  locations: Array<"Bhopal" | "Indore" | "Remote">;
+  /** Plain note on what the work involves and typical entry level. */
+  note: string;
+}
+
+/** The map from a learner's path to the kinds of work it opens up. */
+export interface WorkMapping {
+  goal: string;
+  roles: WorkRole[];
+}
+
+/** The full personalised plan Disha returns and can render as a one-pager. */
+export interface DishaPlan {
+  intake: DishaIntake;
+  /** One-line, plain-English summary of the whole plan. */
+  summary: string;
+  steps: DishaStep[];
+  workMapping: WorkMapping;
+  /** Standing disclaimer: describes work categories, guarantees no employment. */
+  disclaimer: string;
+}
