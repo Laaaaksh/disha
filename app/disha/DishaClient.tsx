@@ -33,6 +33,16 @@ const SAMPLE_INTAKE: DishaIntake = {
   absoluteBeginner: true,
 };
 
+function capitalize(s: string): string {
+  return s.length ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+}
+
+/** Builds a Google search for real openings matching a work role — never a promise of a job, just a starting point. */
+function workRoleSearchUrl(role: WorkRole): string {
+  const query = `${role.category} jobs ${role.locations.join(" ")} India`;
+  return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+}
+
 /** Small inline "spark" mark for the Claude badge — an evocative starburst, not a
  *  reproduction of Anthropic's trademark. Uses currentColor so it inherits the
  *  Claude accent wherever the badge is placed. */
@@ -59,6 +69,52 @@ function ClaudeBadge({ className = "" }: { className?: string }) {
       Powered by Claude
     </span>
   );
+}
+
+/** Format-specific icon for a resource card — video/article/course/interactive, hand-drawn to avoid a new icon-library dependency. */
+function FormatIcon({ format }: { format: string }) {
+  const common = {
+    width: 16,
+    height: 16,
+    viewBox: "0 0 24 24",
+    fill: "none" as const,
+    stroke: "currentColor",
+    strokeWidth: 1.8,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    "aria-hidden": true as const,
+  };
+
+  switch (format) {
+    case "video":
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="9" />
+          <path d="M10 8.5l6 3.5-6 3.5v-7z" fill="currentColor" stroke="none" />
+        </svg>
+      );
+    case "article":
+      return (
+        <svg {...common}>
+          <path d="M6 3h9l3 3v15H6V3z" />
+          <path d="M9 9.5h6M9 13h6M9 16.5h3.5" />
+        </svg>
+      );
+    case "course":
+      return (
+        <svg {...common}>
+          <path d="M2 8l10-4.5L22 8l-10 4.5L2 8z" />
+          <path d="M6 10.3V16c0 1.1 2.7 2.7 6 2.7s6-1.6 6-2.7v-5.7" />
+        </svg>
+      );
+    default:
+      // interactive
+      return (
+        <svg {...common}>
+          <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" fill="currentColor" stroke="none" />
+        </svg>
+      );
+  }
 }
 
 export default function DishaClient() {
@@ -168,15 +224,19 @@ export default function DishaClient() {
   }
 
   return (
-    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-8 px-4 py-10 sm:px-6">
-      <header className="print:hidden space-y-2">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50">
-            Disha — What should I learn next?
-          </h1>
+    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-10 px-4 py-10 sm:px-6 sm:py-14">
+      <header className="print:hidden flex flex-col gap-5">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="disha-eyebrow">
+            <ClaudeSpark />
+            Disha
+          </span>
           <ClaudeBadge />
         </div>
-        <p className="text-neutral-600 dark:text-neutral-400">
+        <h1 className="disha-display disha-text text-4xl font-medium leading-[1.08] tracking-tight sm:text-5xl">
+          What should you learn next?
+        </h1>
+        <p className="disha-text-secondary max-w-xl text-base leading-relaxed sm:text-lg">
           A free, personal learning path built for self-directed learners in Bhopal — no jargon,
           works on a phone, and shows you exactly what to do next.
         </p>
@@ -184,36 +244,36 @@ export default function DishaClient() {
           type="button"
           onClick={handleTrySample}
           disabled={loading}
-          className="rounded-full border border-neutral-300 px-3 py-1 text-xs font-medium text-neutral-600 transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
+          className="disha-chip w-fit disabled:cursor-not-allowed disabled:opacity-50"
         >
           Try a sample
         </button>
       </header>
 
-      <section className="print:hidden flex flex-col gap-5 rounded-xl border border-neutral-200 bg-white p-5 shadow-sm dark:border-neutral-800 dark:bg-neutral-900 sm:p-6">
+      <section className="disha-card print:hidden flex flex-col gap-5 p-5 sm:p-7">
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <div>
-            <label className="label" htmlFor="currentSkills">
+            <label className="disha-label" htmlFor="currentSkills">
               What can you already do? (in your own words)
             </label>
             <textarea
               id="currentSkills"
               value={intake.currentSkills}
               onChange={(e) => set("currentSkills", e.target.value)}
-              className="input mt-1.5 min-h-24"
+              className="disha-textarea mt-1.5 min-h-24"
               placeholder="e.g. I can use WhatsApp and browse YouTube, I typed a few things in Word once"
             />
           </div>
 
           <div>
-            <label className="label" htmlFor="goal">
+            <label className="disha-label" htmlFor="goal">
               What's your goal?
             </label>
             <input
               id="goal"
               value={intake.goal}
               onChange={(e) => set("goal", e.target.value)}
-              className="input mt-1.5"
+              className="disha-input mt-1.5"
               placeholder="e.g. get freelance web work"
             />
             <div className="mt-2 flex flex-wrap gap-2">
@@ -222,7 +282,7 @@ export default function DishaClient() {
                   key={example}
                   type="button"
                   onClick={() => set("goal", example)}
-                  className="rounded-full border border-neutral-300 px-3 py-1 text-xs font-medium text-neutral-600 transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
+                  className="disha-chip"
                 >
                   {example}
                 </button>
@@ -232,14 +292,14 @@ export default function DishaClient() {
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label className="label" htmlFor="device">
+              <label className="disha-label" htmlFor="device">
                 What can you study on?
               </label>
               <select
                 id="device"
                 value={intake.device}
                 onChange={(e) => set("device", e.target.value as LearnerDevice)}
-                className="input mt-1.5"
+                className="disha-select mt-1.5"
               >
                 {DEVICES.map((d) => (
                   <option key={d.value} value={d.value}>
@@ -250,8 +310,9 @@ export default function DishaClient() {
             </div>
 
             <div>
-              <label className="label" htmlFor="hoursPerWeek">
-                Hours per week you can realistically give: <span className="font-semibold">{intake.hoursPerWeek}</span>
+              <label className="disha-label" htmlFor="hoursPerWeek">
+                Hours per week you can realistically give:{" "}
+                <span className="disha-accent-text font-semibold">{intake.hoursPerWeek}</span>
               </label>
               <input
                 id="hoursPerWeek"
@@ -260,23 +321,23 @@ export default function DishaClient() {
                 max={40}
                 value={intake.hoursPerWeek}
                 onChange={(e) => set("hoursPerWeek", Number(e.target.value))}
-                className="mt-3 w-full accent-neutral-900 dark:accent-neutral-100"
+                className="mt-4 w-full accent-[var(--disha-accent)]"
               />
             </div>
           </div>
 
-          <label className="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300">
+          <label className="disha-text-secondary flex items-center gap-2 text-sm">
             <input
               type="checkbox"
               checked={intake.absoluteBeginner}
               onChange={(e) => set("absoluteBeginner", e.target.checked)}
-              className="h-4 w-4 rounded border-neutral-300 dark:border-neutral-700"
+              className="disha-checkbox"
             />
             I&apos;m new to computers — files, accounts, basics
           </label>
 
-          <details className="rounded-lg bg-neutral-50 p-3 text-sm text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300">
-            <summary className="cursor-pointer font-medium text-neutral-800 dark:text-neutral-100">
+          <details className="disha-project-box disha-text-secondary text-sm">
+            <summary className="disha-text cursor-pointer font-medium">
               New to this? What will I get?
             </summary>
             <p className="mt-2">
@@ -287,7 +348,7 @@ export default function DishaClient() {
             </p>
           </details>
 
-          {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
+          {error && <p className="text-sm font-medium text-red-600 dark:text-red-400">{error}</p>}
 
           <button type="submit" disabled={loading} className="disha-btn-primary self-start">
             {loading ? "Building your path…" : "Show my path"}
@@ -296,66 +357,102 @@ export default function DishaClient() {
       </section>
 
       {plan && (
-        <div id="disha-print-area" className="flex flex-col gap-8">
-          <section className="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm dark:border-neutral-800 dark:bg-neutral-900 sm:p-6 print:border-0 print:p-0 print:shadow-none">
-            <p className="text-base font-medium text-neutral-900 dark:text-neutral-50">{plan.summary}</p>
-            <p className="disha-generated-note mt-2 text-xs">
-              <ClaudeSpark className="disha-generated-note-spark" /> Learning path generated by Claude (Anthropic)
+        <div id="disha-print-area" className="flex flex-col gap-10">
+          <section className="disha-card p-5 sm:p-7 print:border print:border-0 print:p-0 print:shadow-none">
+            <p className="disha-display disha-text text-lg leading-snug sm:text-xl">{plan.summary}</p>
+            <p className="disha-generated-note mt-3 text-xs">
+              <ClaudeSpark className="disha-generated-note-spark" /> Learning path generated by Claude
+              (Anthropic)
             </p>
           </section>
 
           <section className="flex flex-col gap-5">
-            <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">Your path</h2>
-            <ol className="flex flex-col gap-4">
+            <h2 className="disha-display disha-text text-xl font-medium sm:text-2xl">Your path</h2>
+            <ol className="disha-timeline">
               {[...plan.steps]
                 .sort((a, b) => a.order - b.order)
-                .map((step) => (
-                  <li
-                    key={step.order}
-                    className="flex gap-4 rounded-xl border border-neutral-200 bg-white p-5 shadow-sm dark:border-neutral-800 dark:bg-neutral-900 print:break-inside-avoid print:border print:shadow-none"
-                  >
-                    <div className="disha-step-number flex h-8 w-8 flex-none items-center justify-center rounded-full text-sm font-semibold">
-                      {step.order}
-                    </div>
-                    <div className="flex flex-1 flex-col gap-3">
-                      <div>
-                        <h3 className="font-medium text-neutral-900 dark:text-neutral-50">{step.title}</h3>
-                        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{step.why}</p>
+                .map((step, idx, sorted) => {
+                  const isDone = doneOrders.has(step.order);
+                  const isLast = idx === sorted.length - 1;
+                  return (
+                    <li key={step.order} className="disha-step print:break-inside-avoid">
+                      <div className="disha-step-rail">
+                        <span className="disha-step-number">{step.order}</span>
+                        {!isLast && <span aria-hidden className="disha-step-line" />}
                       </div>
 
-                      <span className="w-fit rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300">
-                        Resource: {step.resourceId}
-                      </span>
+                      <div className="disha-step-card disha-card p-5 print:shadow-none sm:p-6">
+                        <div className="flex flex-1 flex-col gap-3.5">
+                          <div>
+                            <h3 className="disha-text font-semibold">{step.title}</h3>
+                            <p className="disha-text-secondary mt-1 text-sm">{step.why}</p>
+                          </div>
 
-                      <div className="rounded-lg bg-neutral-50 p-3 dark:bg-neutral-800">
-                        <p className="text-sm font-medium text-neutral-800 dark:text-neutral-100">
-                          Mini-project: {step.project.title}
-                        </p>
-                        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{step.project.brief}</p>
-                        <ul className="mt-2 flex flex-col gap-1">
-                          {step.project.acceptanceCriteria.map((criterion, i) => (
-                            <li key={i} className="flex items-start gap-2 text-sm text-neutral-600 dark:text-neutral-400">
-                              <span aria-hidden className="mt-0.5">
-                                ☐
+                          {step.resource ? (
+                            <a
+                              href={step.resource.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="disha-resource-link group"
+                            >
+                              <span className="disha-format-badge">
+                                <FormatIcon format={step.resource.format} />
                               </span>
-                              <span>{criterion}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                              <span className="min-w-0 flex-1">
+                                <span className="disha-text block truncate text-sm font-semibold">
+                                  {step.resource.title}
+                                </span>
+                                <span className="disha-text-secondary block truncate text-xs">
+                                  {step.resource.provider}
+                                </span>
+                                <span className="mt-1.5 flex flex-wrap gap-1.5">
+                                  <span className="disha-meta-badge">{capitalize(step.resource.format)}</span>
+                                  <span className="disha-meta-badge">{step.resource.durationHours}h</span>
+                                  <span className="disha-meta-badge">{capitalize(step.resource.level)}</span>
+                                </span>
+                              </span>
+                              <span
+                                aria-hidden
+                                className="disha-accent-text flex-none text-lg transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                              >
+                                ↗
+                              </span>
+                            </a>
+                          ) : (
+                            <span className="disha-meta-badge">Resource: {step.resourceId}</span>
+                          )}
 
-                      <label className="print:hidden flex w-fit items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300">
-                        <input
-                          type="checkbox"
-                          checked={doneOrders.has(step.order)}
-                          onChange={() => toggleDone(step.order)}
-                          className="h-4 w-4 rounded border-neutral-300 dark:border-neutral-700"
-                        />
-                        Mark done
-                      </label>
-                    </div>
-                  </li>
-                ))}
+                          <div className="disha-project-box">
+                            <p className="disha-text text-sm font-semibold">
+                              Mini-project: {step.project.title}
+                            </p>
+                            <p className="disha-text-secondary mt-1 text-sm">{step.project.brief}</p>
+                            <ul className="mt-2.5 flex flex-col gap-1.5">
+                              {step.project.acceptanceCriteria.map((criterion, i) => (
+                                <li key={i} className="disha-checklist-item">
+                                  <span aria-hidden className="disha-checklist-mark" />
+                                  <span>{criterion}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          <label
+                            className={`disha-done-toggle print:hidden ${isDone ? "is-done" : ""}`}
+                          >
+                            <input
+                              type="checkbox"
+                              checked={isDone}
+                              onChange={() => toggleDone(step.order)}
+                              className="sr-only"
+                            />
+                            {isDone ? "✓ Done" : "Mark done"}
+                          </label>
+                        </div>
+                      </div>
+                    </li>
+                  );
+                })}
             </ol>
 
             <div className="print:hidden flex flex-wrap gap-3">
@@ -363,7 +460,7 @@ export default function DishaClient() {
                 type="button"
                 onClick={handleReplan}
                 disabled={replanning || doneOrders.size === 0}
-                className="btn-secondary"
+                className="disha-btn-secondary"
               >
                 {replanning ? "Re-planning…" : "Re-plan from here"}
               </button>
@@ -374,42 +471,44 @@ export default function DishaClient() {
           </section>
 
           <section className="flex flex-col gap-4">
-            <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">Where this can lead</h2>
+            <h2 className="disha-display disha-text text-xl font-medium sm:text-2xl">
+              Where this can lead
+            </h2>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {plan.workMapping.roles.map((role: WorkRole) => (
                 <div
                   key={role.category}
-                  className="flex flex-col gap-2 rounded-xl border border-neutral-200 bg-white p-4 shadow-sm dark:border-neutral-800 dark:bg-neutral-900 print:break-inside-avoid print:shadow-none"
+                  className="disha-card flex flex-col gap-3 p-4 print:shadow-none sm:p-5"
                 >
-                  <h3 className="font-medium text-neutral-900 dark:text-neutral-50">{role.category}</h3>
+                  <h3 className="disha-text font-semibold">{role.category}</h3>
                   <div className="flex flex-wrap gap-1.5">
                     {role.requiredSkills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="rounded-full bg-neutral-100 px-2.5 py-0.5 text-xs font-medium text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300"
-                      >
+                      <span key={skill} className="disha-skill-chip">
                         {skill}
                       </span>
                     ))}
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {role.locations.map((loc) => (
-                      <span
-                        key={loc}
-                        className="rounded-full border border-neutral-300 px-2.5 py-0.5 text-xs font-medium text-neutral-700 dark:border-neutral-700 dark:text-neutral-300"
-                      >
+                      <span key={loc} className="disha-location-badge">
                         {loc}
                       </span>
                     ))}
                   </div>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">{role.note}</p>
+                  <p className="disha-text-secondary text-sm">{role.note}</p>
+                  <a
+                    href={workRoleSearchUrl(role)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="disha-search-link print:hidden"
+                  >
+                    Search openings ↗
+                  </a>
                 </div>
               ))}
             </div>
 
-            <p className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900 dark:border-amber-900 dark:bg-amber-950/40 dark:text-amber-200">
-              {plan.disclaimer}
-            </p>
+            <p className="disha-disclaimer">{plan.disclaimer}</p>
           </section>
         </div>
       )}

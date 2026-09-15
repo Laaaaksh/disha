@@ -1,7 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafaf9;
+  /* Warmed very slightly (was #fafaf9) — permitted as the one small global
+     touch for Claude's warm aesthetic; every other page still styles its own
+     surfaces with explicit Tailwind classes, so this only shows in the thin
+     gaps around nav/footer chrome. */
+  --background: #faf9f5;
   --foreground: #171717;
   /* Claude's signature accent — used ONLY on the Disha page (see .disha-*
      classes below) to keep AI Teacher / Learn's shared .btn-primary etc. untouched. */
@@ -103,5 +107,273 @@ body {
 
   .disha-generated-note-spark {
     @apply inline-block flex-none;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Disha — Claude's warm, editorial theme. Every rule below is namespaced
+   under .disha-page (set once in app/disha/page.tsx) so AI Teacher / Learn /
+   Progress / RAG demo — which share globals.css — are completely unaffected.
+   Tokens are CSS custom properties rather than baked-in Tailwind colors so
+   dark mode is just the variables flipping under the same
+   prefers-color-scheme query the rest of the app already uses — no
+   duplicated dark: variant on every element.
+   ------------------------------------------------------------------- */
+.disha-page {
+  --disha-bg: #faf9f5;
+  --disha-bg-alt: #f5f1eb;
+  --disha-surface: #ffffff;
+  --disha-text: #1f1e1d;
+  --disha-text-secondary: #6b655d;
+  --disha-text-muted: #8f887f;
+  --disha-border: #e7e1d6;
+  --disha-accent: #d97757;
+  --disha-accent-hover: #c25e3a;
+  --disha-accent-soft: color-mix(in srgb, #d97757 12%, transparent);
+  --disha-accent-border: color-mix(in srgb, #d97757 35%, transparent);
+  --disha-shadow:
+    0 1px 2px rgba(31, 30, 29, 0.04), 0 8px 24px -12px rgba(31, 30, 29, 0.14);
+
+  background: var(--disha-bg);
+  color: var(--disha-text);
+  font-family: var(--font-disha-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  .disha-page {
+    /* Warm dark (Claude's dark mode), not pure black. */
+    --disha-bg: #262624;
+    --disha-bg-alt: #2b2a27;
+    --disha-surface: #302f2c;
+    --disha-text: #f2eee7;
+    --disha-text-secondary: #b7b0a6;
+    --disha-text-muted: #8f887f;
+    --disha-border: #3d3b36;
+    --disha-accent: #d97757;
+    --disha-accent-hover: #e8956f;
+    --disha-accent-soft: color-mix(in srgb, #d97757 18%, transparent);
+    --disha-accent-border: color-mix(in srgb, #d97757 42%, transparent);
+    --disha-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 28px -14px rgba(0, 0, 0, 0.55);
+  }
+}
+
+@layer components {
+  .disha-display {
+    font-family: var(--font-disha-display), ui-serif, Georgia, serif;
+  }
+
+  /* Small color/surface helpers — kept as plain CSS (not Tailwind arbitrary
+     values like text-[var(--x)]) because utilities such as `text-*` and
+     `border-*` can't tell a custom-property arbitrary value is a color, so
+     they'd otherwise risk being parsed as a font-size/width instead. */
+  .disha-text {
+    color: var(--disha-text);
+  }
+  .disha-text-secondary {
+    color: var(--disha-text-secondary);
+  }
+  .disha-text-muted {
+    color: var(--disha-text-muted);
+  }
+  .disha-accent-text {
+    color: var(--disha-accent);
+  }
+
+  .disha-card {
+    border-radius: 1.25rem;
+    border: 1px solid var(--disha-border);
+    background: var(--disha-surface);
+    box-shadow: var(--disha-shadow);
+  }
+
+  .disha-eyebrow {
+    @apply inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.14em];
+    color: var(--disha-accent);
+  }
+
+  .disha-label {
+    @apply text-sm font-medium;
+    color: var(--disha-text);
+  }
+
+  .disha-input,
+  .disha-textarea,
+  .disha-select {
+    @apply w-full rounded-xl px-3.5 py-2.5 text-sm transition-colors focus:outline-none;
+    background: var(--disha-surface);
+    border: 1px solid var(--disha-border);
+    color: var(--disha-text);
+  }
+
+  .disha-input::placeholder,
+  .disha-textarea::placeholder {
+    color: var(--disha-text-muted);
+  }
+
+  .disha-input:focus,
+  .disha-textarea:focus,
+  .disha-select:focus {
+    border-color: var(--disha-accent);
+    box-shadow: 0 0 0 3px var(--disha-accent-soft);
+  }
+
+  .disha-checkbox {
+    @apply h-4 w-4 rounded;
+    accent-color: var(--disha-accent);
+    border: 1px solid var(--disha-border);
+  }
+
+  .disha-chip {
+    @apply rounded-full px-3 py-1.5 text-xs font-medium transition-colors;
+    border: 1px solid var(--disha-border);
+    color: var(--disha-text-secondary);
+    background: var(--disha-surface);
+  }
+
+  .disha-chip:hover {
+    border-color: var(--disha-accent-border);
+    color: var(--disha-accent);
+    background: var(--disha-accent-soft);
+  }
+
+  .disha-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold
+      text-white transition-all disabled:cursor-not-allowed disabled:opacity-50;
+    background: var(--disha-accent);
+    box-shadow:
+      0 1px 2px rgba(31, 30, 29, 0.08),
+      0 8px 20px -8px color-mix(in srgb, var(--disha-accent) 55%, transparent);
+  }
+
+  .disha-btn-primary:hover:not(:disabled) {
+    background: var(--disha-accent-hover);
+    transform: translateY(-1px);
+  }
+
+  .disha-btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold
+      transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+    border: 1px solid var(--disha-border);
+    color: var(--disha-text);
+    background: var(--disha-surface);
+  }
+
+  .disha-btn-secondary:hover:not(:disabled) {
+    border-color: var(--disha-accent-border);
+    color: var(--disha-accent);
+  }
+
+  /* Step timeline: numbered nodes connected by a vertical rail. */
+  .disha-timeline {
+    @apply flex flex-col;
+  }
+
+  .disha-step {
+    @apply flex gap-4;
+  }
+
+  .disha-step-rail {
+    @apply flex flex-none flex-col items-center;
+  }
+
+  .disha-step-number {
+    @apply flex h-10 w-10 flex-none items-center justify-center rounded-full text-sm font-semibold text-white;
+    background: var(--disha-accent);
+    box-shadow: 0 0 0 4px var(--disha-accent-soft);
+  }
+
+  .disha-step-line {
+    @apply my-1 w-px flex-1;
+    min-height: 1.5rem;
+    background: var(--disha-border);
+  }
+
+  .disha-step-card {
+    @apply mb-6 flex-1;
+  }
+
+  .disha-resource-link {
+    @apply flex items-center gap-3 rounded-xl p-3 text-left transition-all;
+    border: 1px solid var(--disha-border);
+    background: var(--disha-bg-alt);
+  }
+
+  .disha-resource-link:hover {
+    border-color: var(--disha-accent-border);
+    box-shadow: var(--disha-shadow);
+    transform: translateY(-1px);
+  }
+
+  .disha-format-badge {
+    @apply flex h-8 w-8 flex-none items-center justify-center rounded-lg;
+    color: var(--disha-accent);
+    background: var(--disha-accent-soft);
+  }
+
+  .disha-meta-badge {
+    @apply w-fit rounded-full px-2 py-0.5 text-[11px] font-medium;
+    color: var(--disha-text-secondary);
+    background: var(--disha-bg-alt);
+    border: 1px solid var(--disha-border);
+  }
+
+  .disha-project-box {
+    @apply rounded-xl p-3.5;
+    background: var(--disha-bg-alt);
+    border: 1px solid var(--disha-border);
+  }
+
+  .disha-checklist-item {
+    @apply flex items-start gap-2 text-sm;
+    color: var(--disha-text-secondary);
+  }
+
+  .disha-checklist-mark {
+    @apply mt-0.5 h-4 w-4 flex-none rounded-[4px];
+    border: 1.5px solid var(--disha-border);
+  }
+
+  .disha-done-toggle {
+    @apply inline-flex w-fit cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium
+      transition-colors;
+    border: 1px solid var(--disha-border);
+    color: var(--disha-text-secondary);
+    background: var(--disha-surface);
+  }
+
+  .disha-done-toggle.is-done {
+    border-color: var(--disha-accent);
+    color: #ffffff;
+    background: var(--disha-accent);
+  }
+
+  .disha-skill-chip {
+    @apply rounded-full px-2.5 py-0.5 text-xs font-medium;
+    color: var(--disha-text-secondary);
+    background: var(--disha-bg-alt);
+    border: 1px solid var(--disha-border);
+  }
+
+  .disha-location-badge {
+    @apply rounded-full px-2.5 py-0.5 text-xs font-medium;
+    color: var(--disha-accent);
+    border: 1px solid var(--disha-accent-border);
+    background: var(--disha-accent-soft);
+  }
+
+  .disha-search-link {
+    @apply inline-flex w-fit items-center gap-1 text-sm font-semibold transition-colors;
+    color: var(--disha-accent);
+  }
+
+  .disha-search-link:hover {
+    color: var(--disha-accent-hover);
+  }
+
+  .disha-disclaimer {
+    @apply rounded-xl p-3.5 text-sm;
+    border: 1px solid var(--disha-accent-border);
+    background: var(--disha-accent-soft);
+    color: var(--disha-text);
   }
 }
