@@ -24,6 +24,15 @@ const DEFAULT_INTAKE: DishaIntake = {
   absoluteBeginner: false,
 };
 
+/** Matches the "web-dev" preset in scripts/gen-demo-fixtures.ts / data/demo-plans.json — kept in sync by hand since it's a tiny, stable demo fixture. */
+const SAMPLE_INTAKE: DishaIntake = {
+  currentSkills: "I can use WhatsApp and YouTube, and type slowly",
+  goal: "Get freelance website work",
+  device: "phone-and-laptop",
+  hoursPerWeek: 10,
+  absoluteBeginner: true,
+};
+
 export default function DishaClient() {
   const [intake, setIntake] = useState<DishaIntake>(DEFAULT_INTAKE);
   const [plan, setPlan] = useState<DishaPlan | null>(null);
@@ -68,6 +77,21 @@ export default function DishaClient() {
     }
   }
 
+  async function handleTrySample() {
+    setIntake(SAMPLE_INTAKE);
+    setError(null);
+    setLoading(true);
+    try {
+      const nextPlan = await fetchPlan(SAMPLE_INTAKE);
+      setPlan(nextPlan);
+      setDoneOrders(new Set(nextPlan.steps.filter((s) => s.done).map((s) => s.order)));
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function handleReplan() {
     if (!plan) return;
     setError(null);
@@ -102,6 +126,14 @@ export default function DishaClient() {
           A free, personal learning path built for self-directed learners in Bhopal — no jargon,
           works on a phone, and shows you exactly what to do next.
         </p>
+        <button
+          type="button"
+          onClick={handleTrySample}
+          disabled={loading}
+          className="rounded-full border border-neutral-300 px-3 py-1 text-xs font-medium text-neutral-600 transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
+        >
+          Try a sample
+        </button>
       </header>
 
       <section className="print:hidden flex flex-col gap-5 rounded-xl border border-neutral-200 bg-white p-5 shadow-sm dark:border-neutral-800 dark:bg-neutral-900 sm:p-6">

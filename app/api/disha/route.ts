@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateDishaPlan } from "@/lib/disha/generate";
+import { getDemoPlan } from "@/lib/disha/demoMode";
+import type { DishaIntake } from "@/lib/types";
 
 export const runtime = "nodejs";
 
@@ -16,6 +18,15 @@ export async function POST(req: NextRequest) {
 
   if (!body || typeof body !== "object" || !("intake" in body)) {
     return NextResponse.json({ error: "Request body must include an 'intake' object." }, { status: 500 });
+  }
+
+  // Stage-safety / keyless demo: no ANTHROPIC_API_KEY (or an explicit
+  // DISHA_DEMO_MODE=1 override) means we must not touch the network or crash
+  // on stage — serve a real, pre-generated Claude fixture instead. See
+  // lib/disha/demoMode.ts and scripts/gen-demo-fixtures.ts.
+  if (!process.env.ANTHROPIC_API_KEY || process.env.DISHA_DEMO_MODE === "1") {
+    const plan = getDemoPlan(body.intake as DishaIntake);
+    return NextResponse.json(plan);
   }
 
   try {

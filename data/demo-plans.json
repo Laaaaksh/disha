@@ -1,0 +1,353 @@
+[
+  {
+    "id": "web-dev",
+    "label": "Freelance web work (absolute beginner)",
+    "intake": {
+      "currentSkills": "I can use WhatsApp and YouTube, and type slowly",
+      "goal": "Get freelance website work",
+      "device": "phone-and-laptop",
+      "hoursPerWeek": 10,
+      "absoluteBeginner": true
+    },
+    "plan": {
+      "intake": {
+        "currentSkills": "I can use WhatsApp and YouTube, and type slowly",
+        "goal": "Get freelance website work",
+        "device": "phone-and-laptop",
+        "hoursPerWeek": 10,
+        "absoluteBeginner": true
+      },
+      "summary": "This path takes you from basic computer skills to freelance website work in about 6 months. You'll start by getting comfortable with computers and typing, then learn how to build and style web pages, use WordPress (which many local businesses need), and manage your work with version control. Each step includes a small project you can show to potential clients. The path focuses on skills that Bhopal and nearby businesses actually pay for.",
+      "steps": [
+        {
+          "order": 1,
+          "title": "Get comfortable with computers",
+          "why": "Since you're new to computers beyond WhatsApp and YouTube, you need to learn how files, folders, and basic computer operations work before anything else.",
+          "resourceId": "gcf-computer-basics",
+          "project": {
+            "title": "Organize a practice folder",
+            "brief": "Create folders on your laptop for different topics (like 'Learning', 'Projects', 'Photos') and practice moving files between them.",
+            "acceptanceCriteria": [
+              "You created at least 3 folders with clear names",
+              "You moved or copied at least 5 files between folders",
+              "You can find any file you saved without help"
+            ]
+          },
+          "done": false
+        },
+        {
+          "order": 2,
+          "title": "Learn to type faster",
+          "why": "Typing slowly will make everything take much longer. Spending time now to type faster will save you hours every week going forward.",
+          "resourceId": "typing-com-basics",
+          "project": {
+            "title": "Reach 25 words per minute",
+            "brief": "Practice typing every day until you can type at least 25 words per minute without looking at the keyboard much.",
+            "acceptanceCriteria": [
+              "You can type 25 words per minute on a typing test",
+              "You use most of your fingers, not just two",
+              "You can type a full paragraph without many mistakes"
+            ]
+          },
+          "done": false
+        },
+        {
+          "order": 3,
+          "title": "Understand email and online communication",
+          "why": "Freelance work means emailing clients, sharing files, and professional communication. You need to know how email works properly.",
+          "resourceId": "gcf-email-basics",
+          "project": {
+            "title": "Set up a professional email",
+            "brief": "Create a new email address that looks professional (like yourname@gmail.com), send a practice email to yourself with an attachment, and organize it into folders.",
+            "acceptanceCriteria": [
+              "You created an email address with your real name",
+              "You sent an email with a file attached",
+              "You created at least 2 folders to organize emails"
+            ]
+          },
+          "done": false
+        },
+        {
+          "order": 4,
+          "title": "Improve your English writing",
+          "why": "Freelance clients need clear communication. Better English helps you write professional emails, understand instructions, and create content.",
+          "resourceId": "khan-grammar",
+          "project": {
+            "title": "Write a service description",
+            "brief": "Write a short paragraph (5-6 sentences) describing a service you want to offer, like 'I build simple websites for small businesses.'",
+            "acceptanceCriteria": [
+              "Your paragraph has no major grammar mistakes",
+              "Each sentence starts with a capital letter and ends with proper punctuation",
+              "Someone reading it clearly understands what you offer"
+            ]
+          },
+          "done": false
+        },
+        {
+          "order": 5,
+          "title": "Learn how web pages are built",
+          "why": "HTML and CSS are the building blocks of every website. You need to understand these before you can build or fix websites for clients.",
+          "resourceId": "freecodecamp-responsive-web-design",
+          "project": {
+            "title": "Build a simple personal page",
+            "brief": "Create a single web page about yourself with a heading, a paragraph about your skills, a list of services you want to offer, and basic styling with colors.",
+            "acceptanceCriteria": [
+              "The page has a heading, paragraph, and list",
+              "You changed at least 3 colors or fonts using CSS",
+              "The page looks readable on both your phone and laptop"
+            ]
+          },
+          "done": false
+        },
+        {
+          "order": 6,
+          "title": "Learn WordPress for client websites",
+          "why": "Most small businesses in Bhopal want WordPress sites because they're easy to update. This skill gets you paying work quickly.",
+          "resourceId": "wordpress-learn",
+          "project": {
+            "title": "Build a practice business website",
+            "brief": "Create a complete WordPress site for an imaginary local business (like a restaurant or shop) with a home page, about page, services page, and contact form.",
+            "acceptanceCriteria": [
+              "The site has at least 4 pages with real content",
+              "You added a contact form that works",
+              "You chose and customized a theme so it doesn't look like the default"
+            ]
+          },
+          "done": false
+        },
+        {
+          "order": 7,
+          "title": "Learn version control basics",
+          "why": "Git helps you save different versions of your work and is expected by most clients and agencies. It protects you from losing work.",
+          "resourceId": "freecodecamp-git-github-video",
+          "project": {
+            "title": "Save your website code online",
+            "brief": "Put the personal page you built earlier on GitHub so others can see your work and you have a backup.",
+            "acceptanceCriteria": [
+              "You created a GitHub account",
+              "You uploaded your HTML/CSS files to a repository",
+              "You can share the link with someone to view your code"
+            ]
+          },
+          "done": false
+        },
+        {
+          "order": 8,
+          "title": "Add interactivity with JavaScript basics",
+          "why": "JavaScript makes websites interactive (like buttons that do things when clicked). This skill helps you charge more and handle more client requests.",
+          "resourceId": "mdn-js-basics",
+          "project": {
+            "title": "Add a simple interactive feature",
+            "brief": "Add a button to your personal page that does something when clicked, like showing a hidden message or changing the page background color.",
+            "acceptanceCriteria": [
+              "You added a button that works when clicked",
+              "Something visible on the page changes when you click it",
+              "The code works without errors in the browser console"
+            ]
+          },
+          "done": false
+        }
+      ],
+      "workMapping": {
+        "goal": "Get freelance website work",
+        "roles": [
+          {
+            "category": "Frontend web developer (junior/freelance)",
+            "requiredSkills": [
+              "html-css",
+              "javascript",
+              "git"
+            ],
+            "locations": [
+              "Remote",
+              "Indore"
+            ],
+            "note": "Building and fixing the visual/interactive part of websites, often as freelance gigs (Upwork/Fiverr-style) or a junior role at a small agency. A portfolio of 2-3 real small sites matters more than a degree here."
+          },
+          {
+            "category": "WordPress site builder (local businesses)",
+            "requiredSkills": [
+              "wordpress",
+              "html-css",
+              "computer-basics"
+            ],
+            "locations": [
+              "Bhopal",
+              "Indore"
+            ],
+            "note": "Setting up and customising WordPress sites for local shops, clinics and small firms in Bhopal/Indore who need a simple website but can't afford a full dev team. Usually paid per project."
+          },
+          {
+            "category": "Freelance web maintenance & basic tech support",
+            "requiredSkills": [
+              "computer-basics",
+              "html-css",
+              "wordpress"
+            ],
+            "locations": [
+              "Bhopal",
+              "Remote"
+            ],
+            "note": "Ongoing small fixes for existing websites (updating text/images, fixing broken pages, basic troubleshooting) for local businesses. Good recurring income once you've built 1-2 sites and earned trust."
+          }
+        ]
+      },
+      "disclaimer": "Disha shows categories of work and the skills they typically need, based on a curated set of free resources — it does not guarantee a job, an interview, or income."
+    }
+  },
+  {
+    "id": "data",
+    "label": "Junior data analyst (basic Excel/English)",
+    "intake": {
+      "currentSkills": "I know basic Excel and some English",
+      "goal": "Become a junior data analyst",
+      "device": "phone-and-laptop",
+      "hoursPerWeek": 8,
+      "absoluteBeginner": false
+    },
+    "plan": {
+      "intake": {
+        "currentSkills": "I know basic Excel and some English",
+        "goal": "Become a junior data analyst",
+        "device": "phone-and-laptop",
+        "hoursPerWeek": 8,
+        "absoluteBeginner": false
+      },
+      "summary": "You'll start by strengthening your computer and English foundations, then learn SQL and Python—the core tools data analysts use daily. Next, you'll practice cleaning and analyzing data with Pandas. Finally, you'll build real mini-projects to show employers you can turn messy data into insights. This path takes about 16 weeks at 8 hours/week and prepares you for junior data analyst roles in Indore or remote positions.",
+      "steps": [
+        {
+          "order": 1,
+          "title": "Strengthen your English communication",
+          "why": "Data analysts write reports and emails to explain findings. Better English helps you communicate insights clearly to managers and teammates.",
+          "resourceId": "bbc-learning-english",
+          "project": {
+            "title": "Weekly Learning Journal",
+            "brief": "Write a short paragraph in English every day about what you learned that day, as if explaining it to a friend.",
+            "acceptanceCriteria": [
+              "You have 7 journal entries, each 4-5 sentences long",
+              "Each entry uses at least 2 new vocabulary words from BBC lessons",
+              "You can read your entries aloud smoothly without stumbling"
+            ]
+          },
+          "done": false
+        },
+        {
+          "order": 2,
+          "title": "Master spreadsheets deeply",
+          "why": "You know basic Excel, but data analysts use advanced formulas, pivot tables, and charts daily. Google Sheets teaches these skills and is free to practice anywhere.",
+          "resourceId": "gcf-google-sheets",
+          "project": {
+            "title": "Personal Expense Tracker",
+            "brief": "Create a Google Sheet tracking your monthly expenses by category (food, transport, etc.) with formulas that calculate totals and percentages.",
+            "acceptanceCriteria": [
+              "Sheet has at least 20 expense entries across 4 categories",
+              "Uses SUM, AVERAGE, and percentage formulas correctly",
+              "Includes one pie chart showing spending by category"
+            ]
+          },
+          "done": false
+        },
+        {
+          "order": 3,
+          "title": "Learn SQL to query databases",
+          "why": "Most company data lives in databases, not spreadsheets. SQL lets you pull exactly the data you need for analysis—it's the #1 skill employers want.",
+          "resourceId": "sqlbolt",
+          "project": {
+            "title": "Movie Database Queries",
+            "brief": "Using SQLBolt's practice database, write 5 different queries to answer questions like 'Which movies were released after 2010?' or 'What's the average movie rating?'",
+            "acceptanceCriteria": [
+              "All 5 queries run without errors",
+              "At least one query uses WHERE to filter data",
+              "At least one query uses GROUP BY and an aggregate function like AVG or COUNT"
+            ]
+          },
+          "done": false
+        },
+        {
+          "order": 4,
+          "title": "Start programming with Python",
+          "why": "Python automates repetitive tasks and handles datasets too large for spreadsheets. It's beginner-friendly and the most popular language for data analysis.",
+          "resourceId": "freecodecamp-scientific-computing-python",
+          "project": {
+            "title": "Budget Calculator Script",
+            "brief": "Write a Python program that asks for your monthly income and expenses, then calculates how much you can save and prints a simple summary.",
+            "acceptanceCriteria": [
+              "Program takes at least 3 expense inputs from the user",
+              "Calculates and displays total expenses and remaining savings",
+              "Uses variables, input(), print(), and basic math operations correctly"
+            ]
+          },
+          "done": false
+        },
+        {
+          "order": 5,
+          "title": "Clean messy data with Pandas",
+          "why": "Real-world data is always messy—missing values, duplicates, wrong formats. Pandas is Python's tool for cleaning and preparing data before analysis.",
+          "resourceId": "kaggle-data-cleaning",
+          "project": {
+            "title": "Clean a Real Dataset",
+            "brief": "Download a messy CSV dataset from Kaggle (like customer records), then use Pandas to remove duplicates, fill missing values, and fix data types.",
+            "acceptanceCriteria": [
+              "You identify and document at least 3 data quality issues in the original file",
+              "Your Python script removes duplicates and handles missing values",
+              "You export a cleaned CSV and can explain what you fixed in plain English"
+            ]
+          },
+          "done": false
+        },
+        {
+          "order": 6,
+          "title": "Analyze data with Pandas",
+          "why": "Now you'll use Pandas to actually answer questions from data—grouping, filtering, and calculating statistics. This is what data analysts do every day.",
+          "resourceId": "kaggle-pandas",
+          "project": {
+            "title": "Sales Analysis Report",
+            "brief": "Use a sales dataset (from Kaggle or create fake data) to answer: Which product sold most? What's the average order value? Which month had highest sales?",
+            "acceptanceCriteria": [
+              "Your script calculates at least 3 different statistics (totals, averages, counts)",
+              "You use groupby() to analyze data by category or time period",
+              "You write a 1-paragraph summary of your findings in plain English"
+            ]
+          },
+          "done": false
+        },
+        {
+          "order": 7,
+          "title": "Practice more SQL with real databases",
+          "why": "Employers will test your SQL skills in interviews. This certification gives you hands-on practice building and querying databases from scratch.",
+          "resourceId": "freecodecamp-relational-database",
+          "project": {
+            "title": "Student Records Database",
+            "brief": "Design and build a small database with tables for students, courses, and enrollments. Write queries to find things like 'all students in Math' or 'courses with more than 10 students'.",
+            "acceptanceCriteria": [
+              "Database has at least 3 related tables with proper foreign keys",
+              "You insert at least 15 sample records across all tables",
+              "You write 5 queries including at least one JOIN between tables"
+            ]
+          },
+          "done": false
+        }
+      ],
+      "workMapping": {
+        "goal": "Become a junior data analyst",
+        "roles": [
+          {
+            "category": "Junior data analyst",
+            "requiredSkills": [
+              "spreadsheets",
+              "sql",
+              "data-analysis",
+              "python"
+            ],
+            "locations": [
+              "Indore",
+              "Remote"
+            ],
+            "note": "Pulling numbers from spreadsheets/databases and turning them into simple charts or summaries a manager can act on. Entry-level roles usually want spreadsheet fluency plus basic SQL; Python/pandas is a strong plus, not always required on day one."
+          }
+        ]
+      },
+      "disclaimer": "Disha shows categories of work and the skills they typically need, based on a curated set of free resources — it does not guarantee a job, an interview, or income."
+    }
+  }
+]
