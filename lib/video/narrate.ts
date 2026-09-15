@@ -4,6 +4,7 @@ import path from "node:path";
 import { textToSpeech } from "../sarvam";
 import type { SarvamSpeaker } from "../sarvam/types";
 import type { LanguageCode } from "../types";
+import { localTextToSpeech } from "./localTts";
 import { audioCacheDir } from "./paths";
 import { decodeWav, extractEnvelope } from "./wav";
 
@@ -58,12 +59,18 @@ export async function narrate(params: NarrateParams): Promise<NarrationResult> {
     return { wavPath, audio, durationSeconds: meta.durationSeconds, envelope: meta.envelope };
   }
 
-  const { audio } = await textToSpeech({
-    text: params.text,
-    speaker: params.speaker,
-    languageCode: ttsTargetLanguageCode(params.language),
-    pace: params.pace,
-  });
+  // Keyless/local fallback: no SARVAM_API_KEY means no paid TTS, so use macOS
+  // `say` instead (Aman/Lekha voices, $0, no network) — it returns the same
+  // mono PCM16 WAV shape as Sarvam, so decodeWav/extractEnvelope/caching below
+  // don't need to know which provider ran.
+  const { audio } = process.env.SARVAM_API_KEY
+    ? await textToSpeech({
+        text: params.text,
+        speaker: params.speaker,
+        languageCode: ttsTargetLanguageCode(params.language),
+        pace: params.pace,
+      })
+    : await localTextToSpeech({ text: params.text, language: params.language });
 
   const decoded = decodeWav(audio);
   const envelope = extractEnvelope(decoded, ENVELOPE_FPS);
