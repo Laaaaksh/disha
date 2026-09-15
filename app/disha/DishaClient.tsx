@@ -267,7 +267,7 @@ export default function DishaClient() {
 
           <div>
             <label className="disha-label" htmlFor="goal">
-              What's your goal?
+              What&apos;s your goal?
             </label>
             <input
               id="goal"
