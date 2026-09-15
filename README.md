@@ -71,15 +71,7 @@ below. Everything from here down documents that underlying product.
 
 ---
 
-# AI Teacher
-
-## Demo
-
-![The adaptation moment: a wrong answer named as a specific misconception, then re-explained](docs/assets/demo.gif)
-
-**[Full demo video](docs/assets/demo.mp4)** (~3m50s) — real running app, real
-Sarvam API, real generated teaching video. Rough edges honestly noted in
-[`scripts/record-demo/README.md`](scripts/record-demo/README.md).
+# AI Teacher — the underlying teaching engine
 
 A human-like AI educator that teaches through video.
 
@@ -89,15 +81,6 @@ asks you questions as it goes, works out what you did not understand, and change
 how it teaches you.
 
 Built for the Bharat Academix AI Innovation Hackathon 2026, Round 2.
-
-![A generated teaching video: an animated avatar narrating beside a real Mermaid circuit diagram, with live captions](docs/submission/assets/lesson-demo.gif)
-
-*A 6-second clip from a real, live-generated teaching video — real Sarvam
-narration, a real Mermaid diagram chosen automatically for a physics
-concept, a real lip-synced avatar. Not a mockup. See
-[docs/submission/](docs/submission/) for the full walkthrough, including a
-live-run trace of the same lesson catching a student's wrong answer and
-re-teaching it with a different analogy.*
 
 ## Submission documentation
 
