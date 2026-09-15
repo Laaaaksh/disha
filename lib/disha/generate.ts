@@ -22,6 +22,7 @@ import type {
   DishaStep,
   WorkRole,
 } from "../types";
+import { attachResources } from "./enrich";
 
 /** Fixed, plain-English standing disclaimer — Disha describes work categories, it never promises a job. */
 const DISCLAIMER =
@@ -130,13 +131,15 @@ export async function generateDishaPlan(input: GenerateDishaPlanInput): Promise<
   const steps = sanitizeSteps(draft.steps, catalogue);
   const roles = sanitizeWorkRoles(draft.workRoleCategories, jobs, steps, catalogue);
 
-  return {
+  // Attach the full catalogue resource (title/provider/url/...) to each step
+  // so the UI can render a direct clickable link instead of a bare id.
+  return attachResources({
     intake,
     summary: draft.summary,
     steps,
     workMapping: { goal: intake.goal, roles },
     disclaimer: DISCLAIMER,
-  };
+  });
 }
 
 /**

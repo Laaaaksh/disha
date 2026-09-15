@@ -12,6 +12,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import type { DishaIntake, DishaPlan } from "../types";
+import { attachResources } from "./enrich";
 
 interface DemoFixture {
   id: string;
@@ -45,5 +46,8 @@ export function getDemoPlan(requestedIntake: DishaIntake | undefined): DishaPlan
       })
     : undefined;
 
-  return (match ?? fixtures[0]).plan;
+  // Applied at serve-time (not baked into data/demo-plans.json) so the
+  // fixtures don't need regenerating whenever CatalogueResource fields
+  // change — every demo response still carries step.resource.
+  return attachResources((match ?? fixtures[0]).plan);
 }
