@@ -44,6 +44,62 @@ export interface JsonRequest {
   timeoutMs?: number;
 }
 
+export interface ChatRequest {
+  messages: ChatMessage[];
+  maxTokens?: number;
+  temperature?: number;
+  timeoutMs?: number;
+}
+
+export interface ChatResult {
+  content: string;
+}
+
+/** Claude requires an explicit max_tokens; plain-text answers here are short (a few paragraphs). */
+const DEFAULT_CHAT_MAX_TOKENS = 2000;
+
+/**
+ * Plain-text chat completion for callers that don't need structured JSON —
+ * e.g. lib/rag/ground.ts's grounded answer generation. Mirrors lib/sarvam's
+ * chat()/ChatCompletionResult shape just enough for that caller: it only
+ * reads `.content` off the result, so that's all this returns. Uses the same
+ * client/model/error-mapping helpers as json() above.
+ */
+export async function chat(req: ChatRequest): Promise<ChatResult> {
+  const anthropic = getClient();
+  const { system, turns } = splitMessages(req.messages);
+
+  let resp: Anthropic.Message;
+  try {
+    resp = await anthropic.messages.create(
+      {
+        model: DEFAULT_MODEL,
+        max_tokens: req.maxTokens ?? DEFAULT_CHAT_MAX_TOKENS,
+        temperature: req.temperature ?? 0.7,
+        ...(system ? { system } : {}),
+        messages: turns,
+      },
+      req.timeoutMs ? { timeout: req.timeoutMs } : undefined,
+    );
+  } catch (err) {
+    throw mapError(err);
+  }
+
+  const content = resp.content
+    .filter((b): b is Anthropic.TextBlock => b.type === "text")
+    .map((b) => b.text)
+    .join("");
+
+  if (resp.stop_reason === "max_tokens" && !content) {
+    throw new SarvamError("truncated", `Claude hit max_tokens (${req.maxTokens ?? DEFAULT_CHAT_MAX_TOKENS}) before producing content.`);
+  }
+  if (!content) {
+    throw new SarvamError("empty-content", `Claude returned no content (stop_reason: ${resp.stop_reason}).`);
+  }
+
+  return { content };
+}
+
 function extractJsonBlock(text: string): string {
   const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
   if (fenced) return fenced[1].trim();

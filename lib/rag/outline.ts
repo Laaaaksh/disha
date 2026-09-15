@@ -1,5 +1,7 @@
 import { z } from "zod";
-import { json } from "../sarvam";
+// Outline extraction is a structured-JSON reasoning call — routed through
+// Claude (lib/teach/llm.ts adds the bounded outer retry) rather than Sarvam.
+import { json } from "../teach/llm";
 import type { DocumentChunkRow, DocumentRow } from "../db/types";
 import type { ParsedDocument, ParsedSection } from "../documents/types";
 

@@ -79,6 +79,9 @@ export async function translateQueryForRetrieval(query: string, queryLanguage: L
   const target = toTranslateCode(targetLanguage);
   if (source === target) return query;
 
+  // Keyless-Sarvam guard: no SARVAM_API_KEY means no /translate — fall back to the untranslated (English) query rather than throwing.
+  if (!process.env.SARVAM_API_KEY) return query;
+
   const result = await translate({ input: query, sourceLanguageCode: source, targetLanguageCode: target });
   return result.translatedText;
 }

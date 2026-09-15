@@ -1,4 +1,7 @@
-import { chat, translate } from "../sarvam";
+// Grounded-answer generation is Claude's job (see lib/teach/claude.ts); translate
+// stays on Sarvam since Claude doesn't do voice/translation.
+import { chat } from "../teach/claude";
+import { translate } from "../sarvam";
 import type { Citation, LanguageCode } from "../types";
 import { chunkToCitation, retrieve, type RetrievedChunk } from "./retrieve";
 
@@ -49,6 +52,9 @@ const NOT_COVERED_EN =
 async function localizedNotCovered(languageCode: LanguageCode): Promise<string> {
   const target = languageCode === "hinglish" ? "en-IN" : languageCode;
   if (target === "en-IN") return NOT_COVERED_EN;
+  // Keyless-Sarvam guard: this demo runs on the Anthropic key alone, so skip
+  // /translate entirely when SARVAM_API_KEY is absent and fall back to English.
+  if (!process.env.SARVAM_API_KEY) return NOT_COVERED_EN;
   try {
     const { translatedText } = await translate({ input: NOT_COVERED_EN, sourceLanguageCode: "en-IN", targetLanguageCode: target });
     return translatedText;
