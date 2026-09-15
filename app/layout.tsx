@@ -46,6 +46,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </div>
         </nav>
         {children}
+        <footer className="print:hidden border-t border-neutral-200 py-4 text-center text-xs text-neutral-400 dark:border-neutral-800 dark:text-neutral-600">
+          Powered by Claude
+        </footer>
       </body>
     </html>
   );

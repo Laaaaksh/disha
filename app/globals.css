@@ -3,6 +3,9 @@
 :root {
   --background: #fafaf9;
   --foreground: #171717;
+  /* Claude's signature accent — used ONLY on the Disha page (see .disha-*
+     classes below) to keep AI Teacher / Learn's shared .btn-primary etc. untouched. */
+  --claude-accent: #d97757;
 }
 
 @theme inline {
@@ -66,5 +69,39 @@ body {
     @apply rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-900 transition-colors
       hover:bg-neutral-100 disabled:cursor-not-allowed disabled:opacity-50
       dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-800;
+  }
+
+  /* Disha-only "Powered by Claude" branding. Scoped with .disha-* classes
+     (rather than restyling .btn-primary/.btn-secondary) so AI Teacher and
+     Learn, which share those classes, are unaffected. */
+  .disha-btn-primary {
+    @apply rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors
+      disabled:cursor-not-allowed disabled:opacity-50;
+    background: var(--claude-accent);
+  }
+
+  .disha-btn-primary:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--claude-accent) 85%, black);
+  }
+
+  .disha-step-number {
+    background: var(--claude-accent);
+    color: #ffffff;
+  }
+
+  .disha-claude-badge {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium;
+    color: var(--claude-accent);
+    background: color-mix(in srgb, var(--claude-accent) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--claude-accent) 35%, transparent);
+  }
+
+  .disha-generated-note {
+    @apply inline-flex items-center gap-1.5;
+    color: var(--claude-accent);
+  }
+
+  .disha-generated-note-spark {
+    @apply inline-block flex-none;
   }
 }
