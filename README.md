@@ -80,16 +80,6 @@ plans a lesson, teaches it as a generated video with a real voice and an avatar,
 asks you questions as it goes, works out what you did not understand, and changes
 how it teaches you.
 
-Built for the Bharat Academix AI Innovation Hackathon 2026, Round 2.
-
-## Submission documentation
-
-**[docs/submission/](docs/submission/)** is the full submission
-documentation — problem statement through known limitations, in the order
-the assessment's Section 20 asks for, written and verified against a real
-run of this exact branch against the live Sarvam API. Start there for the
-complete picture; this README is the quick-start.
-
 ## Setup
 
 ```bash

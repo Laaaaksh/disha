@@ -1,10 +1,9 @@
 # AI Teacher — architecture
 
-Built for the Bharat Academix AI Innovation Hackathon 2026, Round 2: an AI-powered
-virtual teacher that understands uploaded material or a bare topic, plans a lesson,
-teaches it as a generated video with a real voice and avatar, questions the
-learner, evaluates and adapts, and produces a learning report. See the full brief
-in the submission's round 2 technical assessment; the judged weighting is:
+The teaching engine behind Disha: an AI-powered virtual teacher that understands
+uploaded material or a bare topic, plans a lesson, teaches it as a generated video
+with a real voice and avatar, questions the learner, evaluates and adapts, and
+produces a learning report. Its internal quality weighting:
 
 | Area | Weight |
 |---|---|
