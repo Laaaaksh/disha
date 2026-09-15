@@ -47,9 +47,16 @@ async function main() {
 
   try {
     // ---- 1. Land on /disha, let the header/tagline breathe ----
+    // Post-redesign the page has no heading literally named "Disha" (that text now
+    // lives in a non-heading eyebrow chip) — the real h1 is the "What should you
+    // learn next?" tagline, and the "Powered by Claude" badge sits beside it. Wait
+    // for both so the pause genuinely lands on the finished, settled hero.
     console.log("Navigating to /disha ...");
     await page.goto(`${BASE_URL}/disha`, { waitUntil: "networkidle" });
-    await page.getByRole("heading", { name: /Disha/ }).waitFor({ state: "visible" });
+    await page.getByRole("heading", { level: 1 }).waitFor({ state: "visible" });
+    // "Powered by Claude" text appears twice (hero badge + page footer) — scope
+    // to the hero badge specifically so this doesn't hit a strict-mode error.
+    await page.locator(".disha-claude-badge").getByText("Powered by Claude").waitFor({ state: "visible" });
     await sleep(2200);
 
     // ---- 2. Fill the intake form visibly, at a human pace ----
@@ -105,9 +112,15 @@ async function main() {
     }
 
     // Click "Mark done" on the first step to show the progress interaction.
-    const firstMarkDone = stepCards.first().getByLabel("Mark done");
+    // The checkbox itself is visually `sr-only` (screen-reader-only, zero visual
+    // footprint) — its wrapping <label class="disha-done-toggle"> is the actual
+    // clickable surface, and Playwright's actionability check correctly refuses
+    // to click the invisible input underneath it (that label intercepts the
+    // pointer). Click the visible label; the native label/input association
+    // toggles the checkbox exactly as a real user's tap would.
+    const firstMarkDone = stepCards.first().locator(".disha-done-toggle");
     await firstMarkDone.scrollIntoViewIfNeeded();
-    await firstMarkDone.check();
+    await firstMarkDone.click();
     await sleep(1300);
 
     // Continue scrolling through the remaining steps at a slightly brisker but still readable pace.
