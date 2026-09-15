@@ -74,8 +74,26 @@ function MermaidBlock({ source }: { source: string }) {
         const { svg } = await mermaid.render(id, source);
         if (!cancelled && ref.current) ref.current.innerHTML = svg;
       } catch {
-        // Malformed diagram source: fall back to showing the source rather than an empty box.
-        if (!cancelled && ref.current) {
+        if (cancelled || !ref.current) return;
+        // The generator sometimes mislabels a visual: e.g. LaTeX math tagged as
+        // "mermaid". Rather than show raw code, if the content is really math,
+        // render it with KaTeX; only fall back to plain source as a last resort.
+        const looksLikeMath =
+          /\$\$|\\frac|\\text|\\times|\\div|\\sqrt/.test(source) &&
+          !/\b(graph|sequenceDiagram|flowchart|classDiagram|stateDiagram|erDiagram|gantt|pie)\b/i.test(source);
+        if (looksLikeMath) {
+          ref.current.innerHTML = "";
+          for (const block of source.split(/\$\$/).map((s) => s.trim()).filter(Boolean)) {
+            const el = document.createElement("div");
+            el.className = "my-1";
+            try {
+              katex.render(block, el, { throwOnError: false, displayMode: true });
+            } catch {
+              el.textContent = block;
+            }
+            ref.current.appendChild(el);
+          }
+        } else {
           ref.current.textContent = source;
           ref.current.classList.add("whitespace-pre-wrap", "text-xs", "text-neutral-500");
         }
