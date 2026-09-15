@@ -14,8 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Teacher",
-  description: "A human-like AI educator that teaches through video.",
+  title: "Disha",
+  description:
+    "Disha — a free tool that tells a self-directed learner in Bhopal what to learn next, with a real project to prove each step.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -29,6 +30,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <div className="mx-auto flex w-full max-w-4xl items-center gap-6 px-6 py-3 text-sm">
             <Link href="/" className="font-semibold text-neutral-900 dark:text-neutral-50">
               AI Teacher
+            </Link>
+            <Link href="/disha" className="text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">
+              Disha
             </Link>
             <Link href="/" className="text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">
               Learn

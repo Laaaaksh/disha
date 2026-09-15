@@ -25,6 +25,25 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+/* Disha "one-pager" print view: hide chrome/form/controls, keep the plan +
+   work mapping readable on paper (light background, no shadows, no page
+   breaks mid-card). Scoped to #disha-print-area / .print:hidden so it never
+   touches the ai-teacher pages. */
+@media print {
+  nav {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff;
+    color: #171717;
+  }
+
+  #disha-print-area {
+    gap: 1rem;
+  }
+}
+
 @layer components {
   .label {
     @apply text-sm font-medium text-neutral-700 dark:text-neutral-300;

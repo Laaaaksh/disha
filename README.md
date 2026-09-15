@@ -1,3 +1,67 @@
+# Disha — What should I learn next?
+
+Disha is a free, mobile-first tool that answers the one question a
+self-directed learner keeps getting stuck on: **"I want to learn, but I don't
+know what to learn next, or if it'll actually lead anywhere."** Built for
+PS-2 of the Bhopal Impact Lab hackathon track.
+
+## The problem
+
+A learner in a Tier-2 city like Bhopal — often phone-only, often new to
+computers, with a handful of hours a week — has no shortage of free content
+online. What they don't have is a trustworthy answer to "what next?": which
+free resource to use, in what order, how to prove to themselves (and anyone
+else) that they actually learned it, and whether any of it leads to real
+work. Generic course catalogues assume a laptop, fast internet, and prior
+vocabulary the learner may not have yet.
+
+## What Disha does
+
+1. **Intake, in plain language.** What you can already do (in your own
+   words), your goal, what device you study on, how many hours a week you
+   realistically have, and whether you're new to computers at all.
+2. **An ordered path, not a course list.** Each step names one free,
+   licensed resource from a curated catalogue, explains *why this step now*
+   in plain English, and pairs it with a small, verifiable mini-project with
+   concrete acceptance criteria — proof of the skill, not just "watched it."
+3. **Re-planning.** Mark steps done and Disha rebuilds the remaining path
+   around what you've actually finished.
+4. **A map to real work.** "Where this can lead" turns the finished skills
+   into named categories of work (freelance, junior roles, gigs), the
+   skills each needs, and whether it's realistically found in Bhopal,
+   Indore, or remote — described honestly, never promised.
+5. **A one-pager.** Print or save the plan as a single clean page — a
+   mentor, career counsellor, or family member can review it without
+   opening the app.
+
+Try it at `/disha` after starting the dev server below.
+
+## Setup
+
+```bash
+npm install
+cp .env.example .env.local   # fill in ANTHROPIC_API_KEY
+npm run dev
+```
+
+Open http://localhost:3000/disha for Disha itself, or http://localhost:3000
+for the home page (which links to Disha at the top and still has the
+original AI Teacher flow below it).
+
+`ANTHROPIC_API_KEY` (Claude) is the only credential Disha's plan/work-mapping
+generation needs — get one at https://console.anthropic.com. `SARVAM_API_KEY`
+is optional and only needed if you also exercise the underlying AI Teacher
+video/voice features described below; see `.env.example` for both.
+
+## Built on the AI Teacher engine
+
+Disha is a guidance layer on top of this repo's existing AI Teacher: the
+lesson-planning, adaptation, and multilingual groundwork underneath Disha's
+"what next" logic is the same engine that powers full lesson generation
+below. Everything from here down documents that underlying product.
+
+---
+
 # AI Teacher
 
 ## Demo

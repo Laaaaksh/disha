@@ -1,0 +1,80 @@
+[
+  {
+    "category": "Data entry & spreadsheet analyst",
+    "requiredSkills": ["computer-basics", "spreadsheets", "english-communication"],
+    "locations": ["Bhopal", "Indore", "Remote"],
+    "note": "Entering, cleaning and organising data in spreadsheets for small businesses or agencies. Fully entry-level — most postings train on the job once you can show basic Excel/Sheets comfort and typing speed."
+  },
+  {
+    "category": "Junior data analyst",
+    "requiredSkills": ["spreadsheets", "sql", "data-analysis", "python"],
+    "locations": ["Indore", "Remote"],
+    "note": "Pulling numbers from spreadsheets/databases and turning them into simple charts or summaries a manager can act on. Entry-level roles usually want spreadsheet fluency plus basic SQL; Python/pandas is a strong plus, not always required on day one."
+  },
+  {
+    "category": "Frontend web developer (junior/freelance)",
+    "requiredSkills": ["html-css", "javascript", "git"],
+    "locations": ["Remote", "Indore"],
+    "note": "Building and fixing the visual/interactive part of websites, often as freelance gigs (Upwork/Fiverr-style) or a junior role at a small agency. A portfolio of 2-3 real small sites matters more than a degree here."
+  },
+  {
+    "category": "WordPress site builder (local businesses)",
+    "requiredSkills": ["wordpress", "html-css", "computer-basics"],
+    "locations": ["Bhopal", "Indore"],
+    "note": "Setting up and customising WordPress sites for local shops, clinics and small firms in Bhopal/Indore who need a simple website but can't afford a full dev team. Usually paid per project."
+  },
+  {
+    "category": "Customer support (remote, chat/email)",
+    "requiredSkills": ["computer-basics", "english-communication"],
+    "locations": ["Remote"],
+    "note": "Answering customer questions over chat, email or basic ticketing tools for companies that hire remote support staff across India. Entry-level; clear written English and comfort with a computer matter more than technical skill."
+  },
+  {
+    "category": "Social media / content assistant",
+    "requiredSkills": ["computer-basics", "english-communication", "ui-design"],
+    "locations": ["Bhopal", "Remote"],
+    "note": "Writing captions, scheduling posts and making simple graphics for a small business's or creator's social pages. A good starting point for someone comfortable with phones/apps and basic design tools like Canva or Figma."
+  },
+  {
+    "category": "Junior UI/graphic design assistant",
+    "requiredSkills": ["ui-design", "computer-basics"],
+    "locations": ["Indore", "Remote"],
+    "note": "Helping design app/website screens or marketing graphics under a senior designer's direction. Entry point is usually a small portfolio of practice designs (Figma), not a design degree."
+  },
+  {
+    "category": "Back-office / BPO computer operator",
+    "requiredSkills": ["computer-basics", "spreadsheets", "english-communication"],
+    "locations": ["Bhopal", "Indore"],
+    "note": "Processing forms, records and routine paperwork on a computer for a business-process-outsourcing (BPO) firm. Common first formal job in Tier-2 cities; needs reliable computer basics and spreadsheet use, not coding."
+  },
+  {
+    "category": "Freelance web maintenance & basic tech support",
+    "requiredSkills": ["computer-basics", "html-css", "wordpress"],
+    "locations": ["Bhopal", "Remote"],
+    "note": "Ongoing small fixes for existing websites (updating text/images, fixing broken pages, basic troubleshooting) for local businesses. Good recurring income once you've built 1-2 sites and earned trust."
+  },
+  {
+    "category": "Junior Python developer / automation scripter",
+    "requiredSkills": ["python", "git"],
+    "locations": ["Remote", "Indore"],
+    "note": "Writing small scripts that automate repetitive tasks (renaming files, scraping data, generating reports) for a small team or as freelance work. A handful of working scripts on GitHub is the usual proof of skill."
+  },
+  {
+    "category": "E-commerce listing & catalogue assistant",
+    "requiredSkills": ["computer-basics", "spreadsheets", "english-communication"],
+    "locations": ["Bhopal", "Indore"],
+    "note": "Uploading and maintaining product listings (titles, prices, descriptions, images) for sellers on platforms like Amazon/Flipkart/Meesho. Entry-level, spreadsheet- and detail-heavy work."
+  },
+  {
+    "category": "Online tutor / digital-literacy content creator",
+    "requiredSkills": ["english-communication", "computer-basics"],
+    "locations": ["Remote", "Bhopal"],
+    "note": "Teaching school subjects or basic computer/digital skills to others online, live or via recorded video. Clear spoken/written English and comfort explaining things simply matter more than formal teaching credentials."
+  },
+  {
+    "category": "Junior QA / website tester",
+    "requiredSkills": ["computer-basics", "html-css", "english-communication"],
+    "locations": ["Remote", "Indore"],
+    "note": "Clicking through websites/apps to find and clearly report bugs before they go live. A good low-code entry point into the tech industry that still values careful, methodical work over deep coding skill."
+  }
+]

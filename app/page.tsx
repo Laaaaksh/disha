@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { clearStoredLearnerProfileId, getStoredLearnerProfileId, setStoredLearnerProfileId } from "@/lib/client/learner";
 
@@ -242,6 +243,17 @@ export default function Home() {
 
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-8 px-6 py-16">
+      <Link
+        href="/disha"
+        className="flex flex-col gap-1 rounded-xl border border-neutral-900 bg-neutral-900 p-5 text-white shadow-sm transition-colors hover:bg-neutral-700 dark:border-neutral-100 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-300"
+      >
+        <span className="text-xs font-semibold uppercase tracking-wide opacity-80">New — Bhopal Impact Lab</span>
+        <span className="text-lg font-semibold">Disha — find out what to learn next →</span>
+        <span className="text-sm opacity-80">
+          A free, personal learning path with real projects and a map to where it can lead.
+        </span>
+      </Link>
+
       <header className="space-y-2">
         <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50">AI Teacher</h1>
         <p className="text-neutral-600 dark:text-neutral-400">
