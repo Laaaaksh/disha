@@ -97,9 +97,8 @@ embeddings run locally too: the first document you index downloads a ~23MB
 MiniLM model to `.cache/transformers/` (gitignored), so that one run needs
 network; every run after it is offline. See `docs/VIDEO.md` for why the
 video-generation slice needs Playwright's browser downloaded separately from
-`npm install`, and [docs/submission/14-setup-instructions.md](docs/submission/14-setup-instructions.md)
-for a real gotcha (native-module install-script approval) hit and fixed on a
-clean checkout while writing this documentation.
+`npm install`. Native modules also need their install scripts approved once —
+see the `allowScripts` block in `package.json`.
 
 Open http://localhost:3000 for the student experience — upload material or
 name a topic, describe how you want to be taught, and watch a real teaching
@@ -142,7 +141,4 @@ polled via `scriptingStatus`). `/rag-demo` exercises retrieval and grounding
 on their own; `docs/VIDEO.md` covers the video-generation pipeline.
 
 See `docs/ARCHITECTURE.md` and `docs/SCHEMA.md` for the system design and
-database schema, and [docs/submission/](docs/submission/) for the
-submission-facing documentation with real, live-run traces of every claim
-above — including the exact adaptation trace referenced in the GIF's
-caption.
+database schema.
