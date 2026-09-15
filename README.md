@@ -142,3 +142,7 @@ on their own; `docs/VIDEO.md` covers the video-generation pipeline.
 
 See `docs/ARCHITECTURE.md` and `docs/SCHEMA.md` for the system design and
 database schema.
+
+## Credits
+
+Background music in the demo videos: *"Lost and Found"* — royalty-free via [Chosic](https://www.chosic.com/). Please retain attribution to the original artist per the track page.
