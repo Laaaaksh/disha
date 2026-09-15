@@ -2,12 +2,8 @@
 
 Read `docs/ARCHITECTURE.md` first — it is the settled architecture (credentials,
 verified Sarvam endpoint contracts and gotchas, the teaching loop, what's judged)
-and takes precedence over anything below. `docs/SCHEMA.md` documents the database.
-`docs/submission/` is the jury-facing submission documentation (problem statement
-through known limitations, per the assessment's Section 20) — written for an
-external reader, not a contributor, so prefer `docs/ARCHITECTURE.md`/`docs/SCHEMA.md`/
-`docs/VIDEO.md` as the engineering source of truth and treat `docs/submission/`
-as downstream of them, not the other way around.
+and takes precedence over anything below. `docs/SCHEMA.md` documents the database,
+and `docs/VIDEO.md` covers the video-generation pipeline.
 
 ## Non-obvious setup facts
 

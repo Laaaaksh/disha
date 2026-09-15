@@ -53,7 +53,7 @@ const plan: LessonPlan = {
 describe("teachingSegmentFor — adaptation-scene bridge leak (regression)", () => {
   it("does not replay a wrong-answer re-explanation scene in the next concept's segment", () => {
     // Concept 1's original scripted beats: orders 0-4 (checkpoint@3, transition@4) — matches
-    // the real scene-order layout traced live (docs/submission's adaptation trace).
+    // the real scene-order layout traced live.
     const concept1Beats: Scene[] = [
       scene({ id: "c1-intro", conceptId: "concept-1", type: "introduction", order: 0 }),
       scene({ id: "c1-explain", conceptId: "concept-1", type: "explanation", order: 1 }),
