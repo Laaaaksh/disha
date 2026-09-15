@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
   // serverless host (e.g. Vercel) they must be traced into the function
   // bundle or the read ENOENTs. Keeps the Disha slice deployable.
   outputFileTracingIncludes: {
-    "/api/disha": ["./data/catalogue.json", "./data/jobs.json"],
+    "/api/disha": ["./data/catalogue.json", "./data/jobs.json", "./data/demo-plans.json"],
   },
   // These ship native bindings (better-sqlite3), bundle badly under webpack's
   // RSC layer (pdf-parse/pdfjs-dist's exports interop), or resolve assets

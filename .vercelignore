@@ -1,0 +1,14 @@
+# Vercel Hobby caps a deployment at 12 serverless functions. Disha's live slice
+# only needs /api/disha; the rest of the teaching engine (video, RAG, lessons,
+# documents, speech, progress, profile) needs a real browser + ffmpeg + a
+# persistent disk that serverless doesn't provide, so it isn't deployed here.
+# All of it still runs locally (npm run dev). Excluding the route files keeps
+# the function count under the limit.
+app/api/video
+app/api/teach
+app/api/documents
+app/api/rag
+app/api/speech
+app/api/profile
+app/api/progress
+app/api/health
