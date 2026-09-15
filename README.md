@@ -5,6 +5,15 @@ self-directed learner keeps getting stuck on: **"I want to learn, but I don't
 know what to learn next, or if it'll actually lead anywhere."** Built for
 PS-2 of the Bhopal Impact Lab hackathon track.
 
+## Demo
+
+![Disha demo](docs/assets/disha-demo.gif)
+
+Full-quality clip: [`docs/assets/disha-demo.mp4`](docs/assets/disha-demo.mp4)
+(intake → generated path → work-mapping cards, recorded at a phone-width
+viewport, running against a pre-generated fixture in demo mode — no live API
+calls).
+
 ## The problem
 
 A learner in a Tier-2 city like Bhopal — often phone-only, often new to
