@@ -71,6 +71,11 @@ function MermaidBlock({ source }: { source: string }) {
         const mermaid = (await import("mermaid")).default;
         mermaid.initialize({ startOnLoad: false, theme: "neutral", fontFamily: "system-ui, sans-serif" });
         const id = "mmd-" + Math.random().toString(36).slice(2);
+        // mermaid.render() draws its OWN "Syntax error" bomb graphic on invalid
+        // input instead of throwing — so validate with parse() first and route
+        // invalid content to the fallback below rather than rendering a bomb.
+        const valid = await mermaid.parse(source, { suppressErrors: true });
+        if (!valid) throw new Error("invalid mermaid source");
         const { svg } = await mermaid.render(id, source);
         if (!cancelled && ref.current) ref.current.innerHTML = svg;
       } catch {
@@ -94,8 +99,8 @@ function MermaidBlock({ source }: { source: string }) {
             ref.current.appendChild(el);
           }
         } else {
-          ref.current.textContent = source;
-          ref.current.classList.add("whitespace-pre-wrap", "text-xs", "text-neutral-500");
+          ref.current.textContent = "Diagram preview unavailable — the full version appears in the teaching video.";
+          ref.current.classList.add("text-xs", "italic", "text-neutral-400");
         }
       }
     })();
