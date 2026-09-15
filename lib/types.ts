@@ -383,6 +383,14 @@ export interface DishaStep {
   why: string;
   /** id of the CatalogueResource this step uses (grounded, never invented). */
   resourceId: string;
+  /**
+   * The full catalogue resource resolved from resourceId, attached server-side
+   * so the UI can render a direct clickable link (title, provider, real URL)
+   * instead of making the learner search for it. Optional because it is
+   * populated after grounding; a step whose resourceId somehow can't be
+   * resolved simply has no link rather than a broken one.
+   */
+  resource?: CatalogueResource;
   project: MiniProject;
   done: boolean;
 }
