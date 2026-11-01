@@ -37,7 +37,7 @@ python3 "$ROOT_DIR/scripts/record-demo/make_title_card.py" "$WORK/cards/before_l
   --lines "Learn it as a lesson|main" "Adaptive teaching video, generated on the fly|accent"
 
 python3 "$ROOT_DIR/scripts/record-demo/make_title_card.py" "$WORK/cards/outro.png" \
-  --lines "Try it|big" "github.com/attentionfs/disha|accent" "Powered by Claude|small"
+  --lines "Try it|big" "github.com/Laaaaksh/disha|accent" "Powered by Claude|small"
 
 # ---------------------------------------------------------------------------
 # 2) Turn each PNG into a CARD_DUR-second video segment with a soft music bed
